@@ -18,10 +18,10 @@ my ($infile, $outfile) = @ARGV;
 
 $factory = Bio::Tools::Run::StandAloneBlastPlus->new(
 		-db_name => '/home/matias/Desktop/ncbi-blast-2.5.0+/data/swissprot',
-		-prog_dir => '/home/matias/Desktop/ncbi-blast-2.5.0+/bin'
-	);
+		-prog_dir => '/home/matias/Desktop/ncbi-blast-2.5.0+/bin'	
+);
 $result = $factory->blastp(-query => $infile, 
 			-outfile => $outfile, 
-			-method_args => [ '-evalue' => 10 ]
+			-method_args => [ '-evalue' => 0.01 ]
 	);
 

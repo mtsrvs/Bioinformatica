@@ -16,12 +16,10 @@ use strict;
 
 
 my ($infile, $outfile) = @ARGV;
-my $prog = 'blastp';
+my $prog = 'blastx';
 my $db   = 'swissprot';
-my $e_val= '1e-10';
-
+my $e_val= '0.01';
 my @params = ( '-prog' => $prog, '-data' => $db, '-expect' => $e_val, '-readmethod' => 'SearchIO' );
-
 my $factory = Bio::Tools::Run::RemoteBlast->new(@params);
 
 #$v is just to turn on and off the messages
@@ -29,30 +27,31 @@ my $v = 1;
 
 #optional: send BLAST request to a cloud service provider instead of NCBI
 $factory->set_url_base("https://blast.ncbi.nlm.nih.gov/Blast.cgi");
-  my $r = $factory->submit_blast($infile);
-  print STDERR "waiting..." if( $v > 0 );
-  while ( my @rids = $factory->each_rid ) {
-    foreach my $rid ( @rids ) {
-      my $rc = $factory->retrieve_blast($rid);
-      if( !ref($rc) ) {
-        if( $rc < 0 ) {
-          $factory->remove_rid($rid);
-        }
-        print STDERR "." if ( $v > 0 );
-        sleep 5;
-      } else {
-        my $result = $rc->next_result();       
-	$factory->save_output($outfile);
-        $factory->remove_rid($rid);
-        print "\nQuery Name: ", $result->query_name(), "\n";
-        while ( my $hit = $result->next_hit ) {
-          next unless ( $v > 0);
-          print "\thit name is ", $hit->name, "\n";
-          while( my $hsp = $hit->next_hsp ) {
-            print "\t\tscore is ", $hsp->score, "\n";
-          }
-        }
-      }
-    }
+#$factory->set_url_base("https://www.ncbi.nlm.nih.gov/blast/Blast.cgi");
+my $r = $factory->submit_blast($infile);
+print STDERR "waiting..." if( $v > 0 );
+while ( my @rids = $factory->each_rid ) {
+	foreach my $rid ( @rids ) {
+		my $rc = $factory->retrieve_blast($rid);
+      		if( !ref($rc) ) {
+        		if( $rc < 0 ) {
+          			$factory->remove_rid($rid);
+        		}
+        		print STDERR "." if ( $v > 0 );
+        		sleep 5;
+      		} else {
+      	  		my $result = $rc->next_result();       
+			$factory->save_output($outfile);
+        		$factory->remove_rid($rid);
+        		print "\nQuery Name: ", $result->query_name(), "\n";
+        		while ( my $hit = $result->next_hit ) {
+          			next unless ( $v > 0);
+          			print "\thit name is ", $hit->name, "\n";
+          			while( my $hsp = $hit->next_hsp ) {
+            				print "\t\tscore is ", $hsp->score, "\n";
+          			}
+        		}
+      		}
+    	}
 }
 

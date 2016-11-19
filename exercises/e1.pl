@@ -11,12 +11,12 @@ $outfileformat = 'Fasta';
 
 #Archivos de entrada y salida
 $inputFile = Bio::SeqIO->new(-file => "$infile", -format => $infileformat);
-$frame1File = Bio::SeqIO->new(-file => ">frame+1.fas", -format => $outfileformat);
-$frame2File = Bio::SeqIO->new(-file => ">frame+2.fas", -format => $outfileformat);
-$frame3File = Bio::SeqIO->new(-file => ">frame+3.fas", -format => $outfileformat);
-$frame4File = Bio::SeqIO->new(-file => ">frame-1.fas", -format => $outfileformat);
-$frame5File = Bio::SeqIO->new(-file => ">frame-2.fas", -format => $outfileformat);
-$frame6File = Bio::SeqIO->new(-file => ">frame-3.fas", -format => $outfileformat);
+$frame1File = Bio::SeqIO->new(-file => ">f1.fas", -format => $outfileformat);
+$frame2File = Bio::SeqIO->new(-file => ">f2.fas", -format => $outfileformat);
+$frame3File = Bio::SeqIO->new(-file => ">f3.fas", -format => $outfileformat);
+$frame4File = Bio::SeqIO->new(-file => ">r1.fas", -format => $outfileformat);
+$frame5File = Bio::SeqIO->new(-file => ">r2.fas", -format => $outfileformat);
+$frame6File = Bio::SeqIO->new(-file => ">r3.fas", -format => $outfileformat);
 
 #Conversion a formato Fasta
 my $seq = $inputFile->next_seq();
