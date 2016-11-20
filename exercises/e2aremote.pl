@@ -16,7 +16,7 @@ use strict;
 
 
 my ($infile, $outfile) = @ARGV;
-my $prog = 'blastx';
+my $prog = 'blastp';
 my $db   = 'swissprot';
 my $e_val= '0.01';
 my @params = ( '-prog' => $prog, '-data' => $db, '-expect' => $e_val, '-readmethod' => 'SearchIO' );
@@ -29,7 +29,7 @@ my $v = 1;
 $factory->set_url_base("https://blast.ncbi.nlm.nih.gov/Blast.cgi");
 #$factory->set_url_base("https://www.ncbi.nlm.nih.gov/blast/Blast.cgi");
 my $r = $factory->submit_blast($infile);
-print STDERR "waiting..." if( $v > 0 );
+print STDERR "espere..." if( $v > 0 );
 while ( my @rids = $factory->each_rid ) {
 	foreach my $rid ( @rids ) {
 		my $rc = $factory->retrieve_blast($rid);
