@@ -7,8 +7,8 @@ Este trabajo practico final consta de 5 ejercicios.
 
 
 ## Integrantes:
-Rivas, Leandro Matias
-xxxxx, Nicolas
+* Rivas, Leandro Matias
+* Castaño Gomez, Nicolas Martin
 
 
 ## Sitios consultados
